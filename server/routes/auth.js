@@ -8,9 +8,9 @@ router.post("/login", userController.login);
 // Create user
 router.post("/register", userController.createUser);
 
-// You can add other auth-related routes here
-// router.post("/register", userController.createUser);
-// router.post("/forgot-password", userController.forgotPassword);
-// router.post("/reset-password", userController.resetPassword);
+// Password recovery  and ResET
+router.post("/forgot-password", authController.forgotPassword);
+router.post("/reset-password/:token", authController.resetPassword);
+router.get("/verify-reset-token/:token", authController.verifyResetToken);
 
 module.exports = router;
