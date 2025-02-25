@@ -10,6 +10,8 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+app.use("/api/users", require("./routes/users"));
+
 // Add middleware
 app.use(cors());
 app.use(bodyParser.json());
