@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 module.exports = {
   getAllUsers: async (req, res) => {
@@ -65,18 +67,29 @@ module.exports = {
       const userId = req.params.userId;
       const { name, email, password } = req.body;
 
-      // Check if user exists
+      // 1. Check if user exists
       const existingUser = await User.findById(userId);
       if (!existingUser) {
         return res.status(404).json({ message: "User not found" });
       }
 
-      // If no fields to update were provided
+      // 2. If no fields to update were provided
       if (!name && !email && !password) {
         return res.status(400).json({ message: "No update data provided" });
       }
 
-      const updatedUser = await User.update(userId, { name, email, password });
+      // 3. Create userData object with only defined fields
+      const userData = {};
+      if (name) userData.name = name;
+      if (email) userData.email = email;
+
+      // 4. Hash password if its being updateEd
+
+      if (password) {
+        userData.password = await bcrypt.hash(password, 10);
+      }
+
+      const updatedUser = await User.update(userId, userData);
 
       res.status(200).json({
         message: "User updated successfully",
@@ -90,7 +103,7 @@ module.exports = {
 
   deleteUser: async (req, res) => {
     try {
-      const userId = parseInt(req.params.userId, 10); // Convert to integer
+      const userId = parseInt(req.params.userId, 10);
       const deletedUser = await User.delete(userId);
 
       if (deletedUser) {
@@ -106,4 +119,7 @@ module.exports = {
       res.status(500).json({ message: "Error deleting user" });
     }
   },
+};
+const generateJWTtoken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "5d" });
 };
