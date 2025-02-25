@@ -31,6 +31,12 @@ module.exports = {
   },
 
   delete: async (id) => {
-    // Implementation for deleting user
+    console.log(`Attempting to delete user with ID: ${id}, type: ${typeof id}`);
+
+    const result = await db.query("DELETE FROM users WHERE id = $1 RETURNING *", [id]);
+
+    console.log(`Delete result:`, result.rows);
+
+    return result.rows[0] || null;
   },
 };

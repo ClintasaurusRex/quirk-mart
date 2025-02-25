@@ -90,7 +90,7 @@ module.exports = {
 
   deleteUser: async (req, res) => {
     try {
-      const userId = req.params.userId;
+      const userId = parseInt(req.params.userId, 10); // Convert to integer
       const deletedUser = await User.delete(userId);
 
       if (deletedUser) {
