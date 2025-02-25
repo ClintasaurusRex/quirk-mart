@@ -10,12 +10,13 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
-app.use("/api/users", require("./routes/users"));
-
 // Add middleware
 app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan("dev"));
+
+// ROUTES
+app.use("/api/users", require("./routes/users"));
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.😎😎😎😎`);
