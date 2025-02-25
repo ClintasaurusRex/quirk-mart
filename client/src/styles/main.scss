@@ -1,0 +1,22 @@
+$primary-color: #1d659c;
+
+body {
+  background-color: #6aa0b3;
+  font-family: Arial, sans-serif;
+  color: $primary-color;
+}
+
+// .navbar {
+//   background-color: darken($primary-color, 10%);
+//   padding: 1rem;
+
+//   a {
+//     color: white;
+//     margin-right: 1rem;
+//     text-decoration: none;
+
+//     &:hover {
+//       text-decoration: underline;
+//     }
+//   }
+// }
