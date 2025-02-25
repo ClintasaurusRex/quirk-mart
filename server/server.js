@@ -3,11 +3,11 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
-
+const db = require("./connect/database");
 dotenv.config();
-
 const PORT = process.env.PORT || 3000;
 
+db.connect();
 const app = express();
 
 // Add middleware
