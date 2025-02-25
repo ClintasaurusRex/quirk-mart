@@ -1,3 +1,5 @@
+// MODEL
+
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
@@ -10,6 +12,9 @@ router.get("/:userId", userController.getUserById);
 
 // Create user
 router.post("/", userController.createUser);
+
+// Update user
+router.post("/login", userController.login);
 
 // Update user
 router.put("/:userId", userController.updateUser);
