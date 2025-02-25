@@ -1,4 +1,7 @@
 const { Pool } = require("pg");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 // Configure connection with your specific database details
 const pool = new Pool({
@@ -6,7 +9,7 @@ const pool = new Pool({
   host: process.env.DB_HOST || "localhost",
   database: process.env.DB_NAME || "quirkmart_dev", // Database name
   password: process.env.DB_PASSWORD || "password",
-  port: process.env.DB_PORT || 5432,
+  port: process.env.DB_PORT || 1234,
 });
 
 // Define the connection function
@@ -15,7 +18,7 @@ const connectDB = () => {
     if (err) {
       console.error("Database connection error", err.stack);
     } else {
-      console.log("Database connected successfully to quirkmart_dev");
+      console.log("Database connected successfully to quirkmart_dev😎😎");
     }
   });
 };
