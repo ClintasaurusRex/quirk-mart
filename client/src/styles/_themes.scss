@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $themes: (
   light: (
     text: #010209,
@@ -18,7 +20,7 @@ $themes: (
 );
 
 @mixin theme($theme) {
-  $colors: map-get($themes, $theme);
+  $colors: map.get($themes, $theme);
   @each $name, $color in $colors {
     --#{$name}: #{$color};
   }
