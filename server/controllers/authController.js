@@ -28,23 +28,23 @@ module.exports = {
           },
         });
         // SENT THE EMAIL
-        // const transporter = nodemailer.createTransport({
-        //   service: "gmail",
-        //   auth: {
-        //     user: process.env.EMAIL_USER,
-        //     pass: process.env.EMAIL_PASSWORD,
-        //   },
-        // });
+        /*     const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASSWORD,
+          },
+        });
 
-        // const reset = "www.google.com";
-        // const mailOptions = {
-        //   from: "cahile.codemajic@gmail.com",
-        //   to: email,
-        //   subject: "Password Reset",
-        //   text: `Click this link to reset passord ${reset}`,
-        // };
+        const reset = "www.google.com";
+        const mailOptions = {
+          from: "cahile.codemajic@gmail.com",
+          to: email,
+          subject: "Password Reset",
+          text: `Click this link to reset passord ${reset}`,
+        };
 
-        await transporter.sendMail(mailOptions);
+        await transporter.sendMail(mailOptions); */
 
         res.status(200).json({ message: "Password reset email sent" });
       } else {
