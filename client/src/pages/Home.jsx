@@ -5,7 +5,7 @@ function Home() {
   return (
     <div className="home-container">
       <section className="hero">
-        <h1>Welcome to Quirk Mart 🛍️</h1>
+        <h1>Welcome to Quirk Mart </h1>
         <p>Your one-stop shop for everything you need!</p>
         <Link to="/products" className="btn-primary">Shop Now</Link>
       </section>
