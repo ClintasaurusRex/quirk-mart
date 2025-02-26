@@ -18,6 +18,12 @@ module.exports = {
         const token = crypto.randomBytes(20).toString("hex");
         console.log("Generated token:", token);
 
+        const resetTokenExpiry = Date.now() + 3600000; // 1 hour
+        await db.query(
+          "UPDATE users SET reset_token = $1, reset_token_expiry = $2 WHERE email = $3",
+          [token, resetTokenExpiry, email]
+        );
+
         // Only for testing - in production NEVER return the token in the response
         res.status(200).json({
           message: "Password reset process initiated",
