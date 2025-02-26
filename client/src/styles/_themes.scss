@@ -1,0 +1,31 @@
+$themes: (
+  light: (
+    text: #010209,
+    background: #fdfdfd,
+    primary: #2d51e8,
+    secondary: #e5f17d,
+    accent: #52ec6b,
+  ),
+  dark: (
+    text: #f6f7fe,
+    background: #010209,
+    primary: #173dd3,
+    secondary: #76810e,
+    accent: #13ae2d,
+  ),
+);
+
+@mixin theme($theme) {
+  $colors: map-get($themes, $theme);
+  @each $name, $color in $colors {
+    --#{$name}: #{$color};
+  }
+}
+
+[data-theme='light'] {
+  @include theme(light);
+}
+
+[data-theme='dark'] {
+  @include theme(dark);
+}
