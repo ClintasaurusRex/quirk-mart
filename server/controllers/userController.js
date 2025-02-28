@@ -105,6 +105,25 @@ module.exports = {
     }
   },
 
+  // LOGOUT USER
+  logout: async (req, res) => {
+    try {
+      // If using sessions
+      if (req.session) {
+        req.session.destroy();
+      }
+
+      // If using JWT with a token blacklist
+      const token = req.headers.authorization.split(" ")[1];
+      await db.query("INSERT INTO token_blacklist (token) VALUES ($1)", [token]);
+
+      return res.status(200).json({ message: "Logged out successfully" });
+    } catch (error) {
+      console.error("Logout error:", error);
+      return res.status(500).json({ message: "Logout failed" });
+    }
+  },
+
   // UPDATE USER
   updateUser: async (req, res) => {
     try {
