@@ -2,9 +2,11 @@
   background-color: var(--primary);
   color: var(--text);
   text-align: center;
-  padding: 1.5rem 1rem;
-  margin-top: 2rem;
-  position: relative;
+  padding: 0.1rem 0.5rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 
   &__links {
     display: flex;
