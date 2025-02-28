@@ -4,6 +4,13 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/userController");
 
+// Login/Logout route
+router.post("/login", userController.login);
+router.post("/logout", userController.logout);
+
+// Create user
+router.post("/register", userController.createUser);
+
 // GET all users
 router.get("/", userController.getAllUsers);
 
