@@ -12,15 +12,15 @@ function Home() {
 
       <section className="features">
         <div className="feature-card">
-          <h3>🔥 Hot Deals</h3>
+          <h3>Hot Deals</h3>
           <p>Catch our limited-time offers on top products.</p>
         </div>
         <div className="feature-card">
-          <h3>🚀 Fast Shipping</h3>
+          <h3>48h Shipping</h3>
           <p>Get your items delivered quickly and reliably.</p>
         </div>
         <div className="feature-card">
-          <h3>💯 Quality Products</h3>
+          <h3>Categories</h3>
           <p>We provide only the best for our customers.</p>
         </div>
       </section>

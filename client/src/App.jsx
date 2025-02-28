@@ -7,6 +7,8 @@ import Products from "./pages/Products";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Cart from "./pages/Cart";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/products" element={<Products />} />
               <Route path="*" element={<NotFound />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/login" element={<Login />} />
             </Routes>
           </main>
           <Footer />

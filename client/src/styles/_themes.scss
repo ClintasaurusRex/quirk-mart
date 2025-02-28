@@ -1,24 +1,21 @@
 @use "sass:map";
 
 $themes: (
-  light: (
-    text: #010209,
-    background: #fdfdfd,
-    primary: #2d51e8,
-    secondary: #e5f17d,
-    accent: #52ec6b,
-    card: #76810e
-  ),
-  dark: (
-    text: #f6f7fe,
-    background: #010209,
-    primary: #173dd3,
-    secondary: #76810e,
-    accent: #13ae2d,
-    card: #343434
-  ),
+ light: (
+   text: #090722,
+   background: #eceafb,
+   primary: #958de7,
+   secondary: #e26fbf,
+   accent: #c72956,
+ ),
+ dark: (
+   text: #dfddf8,
+   background: #060415,
+   primary: #958de7,
+   secondary: #901d6e,
+   accent: #d63865,
+ ),
 );
-
 @mixin theme($theme) {
   $colors: map.get($themes, $theme);
   @each $name, $color in $colors {

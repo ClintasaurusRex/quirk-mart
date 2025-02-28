@@ -1,0 +1,40 @@
+
+@use "sass:map";
+
+.not-found {
+  background-color: var(--background);
+  color: var(--text);
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary);
+  }
+
+  p {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  a {
+    display: inline-block;
+    background-color: var(--secondary);
+    color: var(--background);
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--accent);
+    }
+  }
+}

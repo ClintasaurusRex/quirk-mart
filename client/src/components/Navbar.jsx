@@ -13,9 +13,10 @@ function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar__logo">
-        <Link to="/">Quirk Mart 🛍️</Link>
+        <Link to="/">Quirk Mart 💪 </Link>
       </div>
       <nav className="navbar__links">
+      <Link to="/login">SignUp/Login</Link>
         <Link to="/cart" aria-label="Cart">
           <FaShoppingCart aria-hidden="true" />
         </Link>
@@ -26,7 +27,7 @@ function Navbar() {
           </button>
           {showDropdown && (
             <div className="navbar__profile-dropdown">
-              <Link to="/profile">View Profile</Link>
+              <Link to="/profile">Your profile</Link>
               <Link to="/settings">Settings</Link>
               <button>Logout</button>
             </div>

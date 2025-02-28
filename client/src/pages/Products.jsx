@@ -1,7 +1,10 @@
+import '../pages/Products.scss'; 
+
+
 function Products() {
     return (
-      <div>
-        <h1>Our Products</h1>
+      <div className="products">
+        <h1> Our Products page</h1>
         <p>Check out our wide range of items.</p>
       </div>
     );
