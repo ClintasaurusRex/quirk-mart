@@ -10,7 +10,7 @@ function Footer() {
       <div className="footer__links">
         <a href="/privacy">Privacy Policy</a>
         <a href="/terms">Terms of Service</a>
-        <a href="/contact">Contact Us</a>
+        <a href="/ContactUs">Contact Us</a>
         <ThemeToggle />
        </div>
     </footer>
