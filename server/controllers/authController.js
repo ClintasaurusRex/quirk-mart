@@ -25,16 +25,17 @@ module.exports = {
         );
 
         // Only for testing - in production NEVER return the token in the response
-        res.status(200).json({
+        /*   res.status(200).json({
           message: "Password reset process initiated",
           devInfo: {
             user: user.rows[0].email,
             token: token,
             expiresIn: "1 hour",
           },
-        });
+        }); */
+
         // SENT THE EMAIL
-        /*     const transporter = nodemailer.createTransport({
+        const transporter = nodemailer.createTransport({
           service: "gmail",
           auth: {
             user: process.env.EMAIL_USER,
@@ -42,15 +43,15 @@ module.exports = {
           },
         });
 
-        const reset = "www.google.com";
+        const reset = `https://your-domain.com/reset-password?token=${token}`;
         const mailOptions = {
-          from: "cahile.codemajic@gmail.com",
+          from: "NO REPLY",
           to: email,
           subject: "Password Reset",
           text: `Click this link to reset passord ${reset}`,
         };
 
-        await transporter.sendMail(mailOptions); */
+        await transporter.sendMail(mailOptions);
 
         res.status(200).json({ message: "Password reset email sent" });
       } else {
