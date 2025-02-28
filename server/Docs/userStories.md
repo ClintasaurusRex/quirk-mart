@@ -3,7 +3,7 @@
 ## User Authentication & Profiles
 
 - Secure sign-up, login,✅ and logout functionality
-- Password recovery/reset
+- Password recovery/reset✅
 - User account dashboard (order history, personal details, saved payment methods)
 
 ## Product Catalog
