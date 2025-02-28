@@ -113,9 +113,9 @@ module.exports = {
         req.session.destroy();
       }
 
-      // If using JWT with a token blacklist
+      /*  // If using JWT with a token blacklist
       const token = req.headers.authorization.split(" ")[1];
-      await db.query("INSERT INTO token_blacklist (token) VALUES ($1)", [token]);
+      await db.query("INSERT INTO token_blacklist (token) VALUES ($1)", [token]); */
 
       return res.status(200).json({ message: "Logged out successfully" });
     } catch (error) {
