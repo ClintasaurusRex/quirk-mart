@@ -66,8 +66,10 @@ module.exports = {
 
   resetPassword: async (req, res) => {
     try {
+      // Destructure from the request body
       const { token, newPassword } = req.body;
 
+      // 2. Check if there is a token or passwod
       if (!token || !newPassword) {
         return res.status(400).json({ message: "Token and new password are required" });
       }
@@ -77,20 +79,25 @@ module.exports = {
         "SELECT * FROM users WHERE reset_token = $1 AND reset_token_expiry > $2",
         [token, Date.now()]
       );
-
+      // 3. Check if the query returns anything
       if (result.rows.length === 0) {
         return res.status(400).json({ message: "Invalid or expired token" });
       }
 
+      // Get the first row from the db and store in variable
       const user = result.rows[0];
 
+      // Hast the password
       const hashedPassword = await bcrypt.hash(newPassword, 10);
       await db.query(
         "UPDATE users SET password = $1, reset_token = NULL, reset_token_expiry = NULL WHERE id = $2",
         [hashedPassword, user.id]
       );
 
+      // Succuess message
       res.status(200).json({ message: "Password has been successfully reset" });
+
+      // Error message
     } catch (error) {
       console.error("Error resetting password:", error);
       res.status(500).json({ message: "Error resetting password" });
