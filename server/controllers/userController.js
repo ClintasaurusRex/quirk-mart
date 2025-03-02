@@ -117,6 +117,14 @@ module.exports = {
         return res.status(404).json({ message: "User not found" });
       }
 
+      // 1a. Verify user is updating their own profile or is an admin
+      // req.user comes from the protect middleware (Found this on stackoverflow Not sure if needed)
+      if (req.user.id !== parseInt(userId) && req.user.role !== "admin") {
+        return res.status(403).json({
+          message: "Not authorized to update this user profile",
+        });
+      }
+
       // 2. If no fields to update were provided
       if (!name && !email && !password) {
         return res.status(400).json({ message: "No update data provided" });
@@ -149,6 +157,20 @@ module.exports = {
   deleteUser: async (req, res) => {
     try {
       const userId = parseInt(req.params.userId, 10);
+
+      // Check if user exists
+      const existingUser = await User.findById(userId);
+      if (!existingUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Verify user is deleting their own account or is an admin
+      if (req.user.id !== userId && req.user.role !== "admin") {
+        return res.status(403).json({
+          message: "Not authorized to delete this user",
+        });
+      }
+
       const deletedUser = await User.delete(userId);
 
       if (deletedUser) {
@@ -156,8 +178,6 @@ module.exports = {
           message: "User deleted successfully",
           deletedUser: deletedUser,
         });
-      } else {
-        res.status(404).json({ message: "User not found" });
       }
     } catch (error) {
       console.error("Error deleting user:", error);
