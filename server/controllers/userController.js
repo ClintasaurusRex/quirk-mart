@@ -51,7 +51,9 @@ module.exports = {
         return res.status(409).json({ message: "Email already exists" });
       }
 
-      const newUser = await User.create({ name, email, password });
+      // const newUser = await User.create({ name, email, password });
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = await User.create({ name, email, password: hashedPassword });
 
       res.status(201).json({
         message: "User created successfully",
@@ -62,7 +64,6 @@ module.exports = {
       res.status(500).json({ message: "Error creating user" });
     }
   },
-
   // LOGIN USER
   login: async (req, res) => {
     try {
@@ -79,9 +80,17 @@ module.exports = {
         return res.status(401).json({ message: "Invalid credentials" });
       }
 
-      // Verify password
-      // const isPasswordValid = await bcrypt.compare(password, user.password);
-      const isPasswordValid = password === user.password;
+      // Determine if the password is hashed (starts with $2b$) or plain text
+      let isPasswordValid;
+
+      if (user.password.startsWith("$2b$")) {
+        // If password is hashed with bcrypt, use bcrypt.compare
+        isPasswordValid = await bcrypt.compare(password, user.password);
+      } else {
+        // If password is plain text, use direct comparison
+        isPasswordValid = password === user.password;
+      }
+
       if (!isPasswordValid) {
         return res.status(401).json({ message: "Invalid credentials" });
       }
@@ -104,7 +113,6 @@ module.exports = {
       res.status(500).json({ message: "Error during login" });
     }
   },
-
   // UPDATE USER
   updateUser: async (req, res) => {
     try {
