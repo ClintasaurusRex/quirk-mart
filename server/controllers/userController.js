@@ -113,6 +113,22 @@ module.exports = {
       res.status(500).json({ message: "Error during login" });
     }
   },
+
+  logout: (req, res) => {
+    try {
+      // Clear the cookie that contains the JWT token
+      res.cookie("jwt", "", {
+        httpOnly: true,
+        expires: new Date(0), // Expires immediately
+      });
+
+      res.status(200).json({ message: "Logged out successfully" });
+    } catch (error) {
+      console.error("Logout error:", error);
+      res.status(500).json({ message: "Server error during logout" });
+    }
+  },
+
   // UPDATE USER
   updateUser: async (req, res) => {
     try {

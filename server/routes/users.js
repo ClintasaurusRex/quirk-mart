@@ -14,6 +14,8 @@ router.get("/:userId", userController.getUserById);
 // Update user
 router.put("/:userId", protect, userController.updateUser);
 
+router.post("/:userId", userController.logout);
+
 // Delete user
 router.delete("/:userId", protect, admin, userController.deleteUser);
 
