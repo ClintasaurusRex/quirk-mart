@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "migrate": "db-migrate up",
+    "migrate:down": "db-migrate down",
+    "migrate:create": "db-migrate create"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
