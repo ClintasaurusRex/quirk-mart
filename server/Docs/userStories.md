@@ -16,6 +16,7 @@
 
 ## Shopping Cart & Checkout Process
 
+- add, update, delete from cart ✅
 - Persistent shopping cart (items remain after login or session timeout)
 - Flexible quantity adjustments and item removal
 - Secure checkout process (SSL encryption)
