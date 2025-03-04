@@ -4,6 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
 const db = require("./connect/database");
+const cartRouter = require("./routes/cart");
 dotenv.config();
 const PORT = process.env.PORT || 3000;
 
@@ -17,7 +18,7 @@ app.use(morgan("dev"));
 
 // ROUTES
 app.use("/api/users", require("./routes/users"));
-
+app.use("/api/cart", cartRouter);
 app.use("/api/auth", require("./routes/auth"));
 
 app.listen(PORT, () => {
