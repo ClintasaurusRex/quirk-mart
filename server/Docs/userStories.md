@@ -20,7 +20,7 @@
 - Persistent shopping cart (items remain after login or session timeout)
 - Flexible quantity adjustments and item removal
 - Secure checkout process (SSL encryption)
-- Multiple payment options (credit/debit cards, digital wallets, bank transfers)
+- Multiple payment options (credit/debit cards, digital wallets, bank transfers)[]
 - Shipping method selection and cost calculation
 - Tax calculation and display
 
