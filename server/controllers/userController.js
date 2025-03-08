@@ -51,7 +51,9 @@ module.exports = {
         return res.status(409).json({ message: "Email already exists" });
       }
 
-      const newUser = await User.create({ name, email, password });
+      // const newUser = await User.create({ name, email, password });
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = await User.create({ name, email, password: hashedPassword });
 
       res.status(201).json({
         message: "User created successfully",
@@ -62,7 +64,6 @@ module.exports = {
       res.status(500).json({ message: "Error creating user" });
     }
   },
-
   // LOGIN USER
   login: async (req, res) => {
     try {
@@ -79,9 +80,17 @@ module.exports = {
         return res.status(401).json({ message: "Invalid credentials" });
       }
 
-      // Verify password
-      // const isPasswordValid = await bcrypt.compare(password, user.password);
-      const isPasswordValid = password === user.password;
+      // Determine if the password is hashed (starts with $2b$) or plain text
+      let isPasswordValid;
+
+      if (user.password.startsWith("$2b$")) {
+        // If password is hashed with bcrypt, use bcrypt.compare
+        isPasswordValid = await bcrypt.compare(password, user.password);
+      } else {
+        // If password is plain text, use direct comparison
+        isPasswordValid = password === user.password;
+      }
+
       if (!isPasswordValid) {
         return res.status(401).json({ message: "Invalid credentials" });
       }
@@ -105,6 +114,21 @@ module.exports = {
     }
   },
 
+  logout: (req, res) => {
+    try {
+      // Clear the cookie that contains the JWT token
+      res.cookie("jwt", "", {
+        httpOnly: true,
+        expires: new Date(0), // Expires immediately
+      });
+
+      res.status(200).json({ message: "Logged out successfully" });
+    } catch (error) {
+      console.error("Logout error:", error);
+      res.status(500).json({ message: "Server error during logout" });
+    }
+  },
+
   // UPDATE USER
   updateUser: async (req, res) => {
     try {
@@ -115,6 +139,14 @@ module.exports = {
       const existingUser = await User.findById(userId);
       if (!existingUser) {
         return res.status(404).json({ message: "User not found" });
+      }
+
+      // 1a. Verify user is updating their own profile or is an admin
+      // req.user comes from the protect middleware (Found this on stackoverflow Not sure if needed)
+      if (req.user.id !== parseInt(userId) && req.user.role !== "admin") {
+        return res.status(403).json({
+          message: "Not authorized to update this user profile",
+        });
       }
 
       // 2. If no fields to update were provided
@@ -149,6 +181,20 @@ module.exports = {
   deleteUser: async (req, res) => {
     try {
       const userId = parseInt(req.params.userId, 10);
+
+      // Check if user exists
+      const existingUser = await User.findById(userId);
+      if (!existingUser) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      // Verify user is deleting their own account or is an admin
+      if (req.user.id !== userId && req.user.role !== "admin") {
+        return res.status(403).json({
+          message: "Not authorized to delete this user",
+        });
+      }
+
       const deletedUser = await User.delete(userId);
 
       if (deletedUser) {
@@ -156,8 +202,6 @@ module.exports = {
           message: "User deleted successfully",
           deletedUser: deletedUser,
         });
-      } else {
-        res.status(404).json({ message: "User not found" });
       }
     } catch (error) {
       console.error("Error deleting user:", error);
